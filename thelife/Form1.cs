@@ -7,13 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Drawing;
+
 
 namespace thelife
 {
     public partial class Form1 : Form
     {
         private Graphics graphics;
+        private int currentGeneration = 0; 
         private int resolution;
         private bool[,] field;
         private int rows;
@@ -28,6 +29,8 @@ namespace thelife
             if (timer1.Enabled)
                 return;
 
+            currentGeneration = 0;
+            Text = $"Generation {currentGeneration}";
             nudResolution.Enabled = false;
             nudDensity.Enabled = false;
 
@@ -97,6 +100,7 @@ namespace thelife
                         }
             */
             pictureBox.Refresh();
+            Text = $"Generation {++currentGeneration}";
 
         }
 
