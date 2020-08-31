@@ -23,7 +23,7 @@ namespace thelife
         private int rows;
         private int cols;
         private int minAge = 5;
-        private int maxAge = 25;
+        private int maxAge = 10;
 
         public Form1()
         {
@@ -55,7 +55,7 @@ namespace thelife
                 for (int y = 0; y < rows; y++)
                 {
                     field[x, y] = random.Next((int)nudDensity.Value) == 0;
-                    fieldColor[x, y] = Brushes.Green;
+                    fieldColor[x, y] = PickBrush(9);
                     lifeTime[x, y] = GetNewLifeTime();
                 }
             }
@@ -70,8 +70,9 @@ namespace thelife
         {
             nudResolution.Enabled = status;
             nudDensity.Enabled = status;
-            nudMinAge.Enabled = status;
-            nudMaxAge.Enabled = status;
+            checkBoxDiesByAge.Enabled = status;
+            nudMinAge.Enabled = status && checkBoxDiesByAge.Checked;
+            nudMaxAge.Enabled = status && checkBoxDiesByAge.Checked;
         }
 
         private int GetNewLifeTime()
@@ -80,17 +81,23 @@ namespace thelife
             return random.Next(minAge, maxAge);
         }
 
-        private Brush PickBrush()
+        private Brush PickBrush(int i)
         {
+            if (i > 9) i = 9;
             Brush[] brushes = new Brush[] {
+                Brushes.DarkViolet,
+                Brushes.Violet,
                 Brushes.Red,
+                Brushes.Orange,
+                Brushes.Yellow,
+                Brushes.LightYellow,
                 Brushes.Green,
-                Brushes.Blue
+                Brushes.LightGreen,
+                Brushes.Blue,
+                Brushes.LightBlue
                 };
 
-            Random rnd = new Random();
-
-            return brushes[rnd.Next(brushes.Length)];
+            return brushes[i];
         }
 
         private void NextGeneration()
@@ -107,41 +114,36 @@ namespace thelife
                 {
                     var neighboursCount = CountNeighbours(x, y);
                     var hasLife = field[x, y];
-
+                    // birth of a new life
                     if (!hasLife && neighboursCount == 3)
                     {
                         newField[x, y] = true;
-                        newFieldColor[x, y] = Brushes.Green;
+                        newFieldColor[x, y] = PickBrush(9);
                         lifeTime[x, y] = GetNewLifeTime();
                     }
+                    // life dies
                     else if (hasLife && (neighboursCount < 2 || neighboursCount > 3))
                     {
                         newField[x, y] = false;
-                        newFieldColor[x, y] = Brushes.Gray;
+                        newFieldColor[x, y] = PickBrush(0);
                         lifeTime[x, y] = 0;
                     }
+                    // life continues to live
                     else
                     {
                         newField[x, y] = field[x, y];
-
+                        // life dies by age
                         if (--lifeTime[x, y] <= 0)
                         {
-                            newField[x, y] = false;
-                            newFieldColor[x, y] = Brushes.Gray;
+                            if (checkBoxDiesByAge.Checked)
+                            {
+                                newField[x, y] = false;
+                                newFieldColor[x, y] = PickBrush(0);
+                            }
                             lifeTime[x, y] = 0;
                         }
-                        if (fieldColor[x, y] == Brushes.Green)
-                        {
-                            newFieldColor[x, y] = Brushes.Yellow;
-                        }
-                        else if (fieldColor[x, y] == Brushes.Yellow)
-                        {
-                            newFieldColor[x, y] = Brushes.Blue;
-                        }
-                        else
-                        {
-                            newFieldColor[x, y] = Brushes.Red;
-                        }
+                        newFieldColor[x, y] = PickBrush(lifeTime[x, y]);
+                        
                     }
 
                     if (hasLife)
@@ -156,7 +158,6 @@ namespace thelife
 
             pictureBox.Refresh();
             Text = $"Generation {++currentGeneration}";
-
         }
 
         private int CountNeighbours(int x, int y)
@@ -175,11 +176,8 @@ namespace thelife
                     {
                         count++;
                     }
-
                 }
             }
-
-
             return count;
         }
 
@@ -192,7 +190,6 @@ namespace thelife
                     if (field[x,y]) { return true; }
                 }
             }
-
             return false;
         }
 
@@ -262,6 +259,12 @@ namespace thelife
         private void Form1_Load(object sender, EventArgs e)
         {
             Text = $"Generation {currentGeneration}";
+        }
+
+        private void checkBoxDiesByAge_CheckedChanged(object sender, EventArgs e)
+        {
+            nudMinAge.Enabled = checkBoxDiesByAge.Checked;
+            nudMaxAge.Enabled = checkBoxDiesByAge.Checked;
         }
     }
 }
