@@ -30,21 +30,26 @@
         {
             this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.pictureBox = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.nudResolution = new System.Windows.Forms.NumericUpDown();
-            this.nudDensity = new System.Windows.Forms.NumericUpDown();
-            this.buttonStart = new System.Windows.Forms.Button();
+            this.nudMaxAge = new System.Windows.Forms.NumericUpDown();
+            this.nudMinAge = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
             this.buttonStop = new System.Windows.Forms.Button();
+            this.buttonStart = new System.Windows.Forms.Button();
+            this.nudDensity = new System.Windows.Forms.NumericUpDown();
+            this.nudResolution = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pictureBox = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudResolution)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxAge)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinAge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDensity)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudResolution)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -58,6 +63,9 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.nudMaxAge);
+            this.splitContainer1.Panel1.Controls.Add(this.nudMinAge);
+            this.splitContainer1.Panel1.Controls.Add(this.label3);
             this.splitContainer1.Panel1.Controls.Add(this.buttonStop);
             this.splitContainer1.Panel1.Controls.Add(this.buttonStart);
             this.splitContainer1.Panel1.Controls.Add(this.nudDensity);
@@ -72,35 +80,91 @@
             this.splitContainer1.SplitterDistance = 150;
             this.splitContainer1.TabIndex = 0;
             // 
-            // pictureBox
+            // nudMaxAge
             // 
-            this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(920, 490);
-            this.pictureBox.TabIndex = 0;
-            this.pictureBox.TabStop = false;
-            this.pictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseMove);
+            this.nudMaxAge.Location = new System.Drawing.Point(84, 141);
+            this.nudMaxAge.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.nudMaxAge.Name = "nudMaxAge";
+            this.nudMaxAge.Size = new System.Drawing.Size(49, 20);
+            this.nudMaxAge.TabIndex = 8;
+            this.nudMaxAge.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudMaxAge.Value = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
             // 
-            // label1
+            // nudMinAge
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(10, 7);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(82, 16);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Resolution";
+            this.nudMinAge.Location = new System.Drawing.Point(13, 141);
+            this.nudMinAge.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudMinAge.Name = "nudMinAge";
+            this.nudMinAge.Size = new System.Drawing.Size(49, 20);
+            this.nudMinAge.TabIndex = 7;
+            this.nudMinAge.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudMinAge.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             // 
-            // label2
+            // label3
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(10, 59);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(60, 16);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Density";
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(10, 122);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(85, 16);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Time of life";
+            // 
+            // buttonStop
+            // 
+            this.buttonStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonStop.Location = new System.Drawing.Point(13, 206);
+            this.buttonStop.Name = "buttonStop";
+            this.buttonStop.Size = new System.Drawing.Size(120, 33);
+            this.buttonStop.TabIndex = 5;
+            this.buttonStop.Text = "Stop";
+            this.buttonStop.UseVisualStyleBackColor = true;
+            this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
+            // 
+            // buttonStart
+            // 
+            this.buttonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonStart.Location = new System.Drawing.Point(13, 167);
+            this.buttonStart.Name = "buttonStart";
+            this.buttonStart.Size = new System.Drawing.Size(120, 33);
+            this.buttonStart.TabIndex = 4;
+            this.buttonStart.Text = "Start";
+            this.buttonStart.UseVisualStyleBackColor = true;
+            this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
+            // 
+            // nudDensity
+            // 
+            this.nudDensity.Location = new System.Drawing.Point(13, 78);
+            this.nudDensity.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.nudDensity.Name = "nudDensity";
+            this.nudDensity.Size = new System.Drawing.Size(120, 20);
+            this.nudDensity.TabIndex = 3;
+            this.nudDensity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudDensity.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
             // 
             // nudResolution
             // 
@@ -125,45 +189,35 @@
             0,
             0});
             // 
-            // nudDensity
+            // label2
             // 
-            this.nudDensity.Location = new System.Drawing.Point(13, 78);
-            this.nudDensity.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.nudDensity.Name = "nudDensity";
-            this.nudDensity.Size = new System.Drawing.Size(120, 20);
-            this.nudDensity.TabIndex = 3;
-            this.nudDensity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.nudDensity.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Location = new System.Drawing.Point(10, 59);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(60, 16);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Density";
             // 
-            // buttonStart
+            // label1
             // 
-            this.buttonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonStart.Location = new System.Drawing.Point(13, 113);
-            this.buttonStart.Name = "buttonStart";
-            this.buttonStart.Size = new System.Drawing.Size(120, 33);
-            this.buttonStart.TabIndex = 4;
-            this.buttonStart.Text = "Start";
-            this.buttonStart.UseVisualStyleBackColor = true;
-            this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(10, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(82, 16);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Resolution";
             // 
-            // buttonStop
+            // pictureBox
             // 
-            this.buttonStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonStop.Location = new System.Drawing.Point(13, 152);
-            this.buttonStop.Name = "buttonStop";
-            this.buttonStop.Size = new System.Drawing.Size(120, 33);
-            this.buttonStop.TabIndex = 5;
-            this.buttonStop.Text = "Stop";
-            this.buttonStop.UseVisualStyleBackColor = true;
-            this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
+            this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(920, 490);
+            this.pictureBox.TabIndex = 0;
+            this.pictureBox.TabStop = false;
+            this.pictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseMove);
             // 
             // timer1
             // 
@@ -184,9 +238,11 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudResolution)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxAge)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinAge)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDensity)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudResolution)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -202,6 +258,9 @@
         private System.Windows.Forms.Button buttonStop;
         private System.Windows.Forms.Button buttonStart;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.NumericUpDown nudMaxAge;
+        private System.Windows.Forms.NumericUpDown nudMinAge;
+        private System.Windows.Forms.Label label3;
     }
 }
 

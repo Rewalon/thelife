@@ -22,8 +22,8 @@ namespace thelife
         private int[,] lifeTime;
         private int rows;
         private int cols;
-        private const int minAge = 5;
-        private const int maxAge = 25;
+        private int minAge = 5;
+        private int maxAge = 25;
 
         public Form1()
         {
@@ -36,10 +36,12 @@ namespace thelife
 
             currentGeneration = 0;
             Text = $"Generation {currentGeneration}";
-            nudResolution.Enabled = false;
-            nudDensity.Enabled = false;
+            SetStatusControls(false);         
 
             resolution = (int)nudResolution.Value;
+
+            minAge = (int)nudMinAge.Value;
+            maxAge = (int)nudMaxAge.Value;
 
             rows = pictureBox.Height / resolution;
             cols = pictureBox.Width / resolution;
@@ -54,7 +56,7 @@ namespace thelife
                 {
                     field[x, y] = random.Next((int)nudDensity.Value) == 0;
                     fieldColor[x, y] = Brushes.Green;
-                    lifeTime[x, y] = getNewLifeTime();
+                    lifeTime[x, y] = GetNewLifeTime();
                 }
             }
 
@@ -64,7 +66,15 @@ namespace thelife
             timer1.Start();
         }
 
-        private int getNewLifeTime()
+        private void SetStatusControls(bool status)
+        {
+            nudResolution.Enabled = status;
+            nudDensity.Enabled = status;
+            nudMinAge.Enabled = status;
+            nudMaxAge.Enabled = status;
+        }
+
+        private int GetNewLifeTime()
         {
             Random random = new Random();
             return random.Next(minAge, maxAge);
@@ -102,7 +112,7 @@ namespace thelife
                     {
                         newField[x, y] = true;
                         newFieldColor[x, y] = Brushes.Green;
-                        lifeTime[x, y] = getNewLifeTime();
+                        lifeTime[x, y] = GetNewLifeTime();
                     }
                     else if (hasLife && (neighboursCount < 2 || neighboursCount > 3))
                     {
@@ -215,8 +225,7 @@ namespace thelife
                 return;
 
             timer1.Stop();
-            nudResolution.Enabled = true;
-            nudDensity.Enabled = true;
+            SetStatusControls(true);
         }
 
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
