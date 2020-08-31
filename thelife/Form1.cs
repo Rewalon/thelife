@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,11 +15,15 @@ namespace thelife
     public partial class Form1 : Form
     {
         private Graphics graphics;
-        private int currentGeneration = 0; 
+        private int currentGeneration = 0;
         private int resolution;
         private bool[,] field;
+        private Brush[,] fieldColor;
+        private int[,] lifeTime;
         private int rows;
         private int cols;
+        private const int minAge = 5;
+        private const int maxAge = 25;
 
         public Form1()
         {
@@ -39,13 +44,17 @@ namespace thelife
             rows = pictureBox.Height / resolution;
             cols = pictureBox.Width / resolution;
             field = new bool[cols, rows];
-
+            fieldColor = new Brush[cols, rows];
+            lifeTime = new int[cols, rows];
             Random random = new Random();
+
             for (int x = 0; x < cols; x++)
             {
                 for (int y = 0; y < rows; y++)
                 {
                     field[x, y] = random.Next((int)nudDensity.Value) == 0;
+                    fieldColor[x, y] = Brushes.Green;
+                    lifeTime[x, y] = getNewLifeTime();
                 }
             }
 
@@ -55,11 +64,32 @@ namespace thelife
             timer1.Start();
         }
 
+        private int getNewLifeTime()
+        {
+            Random random = new Random();
+            return random.Next(minAge, maxAge);
+        }
+
+        private Brush PickBrush()
+        {
+            Brush[] brushes = new Brush[] {
+                Brushes.Red,
+                Brushes.Green,
+                Brushes.Blue
+                };
+
+            Random rnd = new Random();
+
+            return brushes[rnd.Next(brushes.Length)];
+        }
+
         private void NextGeneration()
         {
             graphics.Clear(Color.Black);
 
             var newField = new bool[cols, rows];
+            var newFieldColor = new Brush[cols, rows];
+
 
             for (int x = 0; x < cols; x++)
             {
@@ -71,34 +101,49 @@ namespace thelife
                     if (!hasLife && neighboursCount == 3)
                     {
                         newField[x, y] = true;
+                        newFieldColor[x, y] = Brushes.Green;
+                        lifeTime[x, y] = getNewLifeTime();
                     }
                     else if (hasLife && (neighboursCount < 2 || neighboursCount > 3))
                     {
                         newField[x, y] = false;
+                        newFieldColor[x, y] = Brushes.Gray;
+                        lifeTime[x, y] = 0;
                     }
                     else
                     {
                         newField[x, y] = field[x, y];
+
+                        if (--lifeTime[x, y] <= 0)
+                        {
+                            newField[x, y] = false;
+                            newFieldColor[x, y] = Brushes.Gray;
+                            lifeTime[x, y] = 0;
+                        }
+                        if (fieldColor[x, y] == Brushes.Green)
+                        {
+                            newFieldColor[x, y] = Brushes.Yellow;
+                        }
+                        else if (fieldColor[x, y] == Brushes.Yellow)
+                        {
+                            newFieldColor[x, y] = Brushes.Blue;
+                        }
+                        else
+                        {
+                            newFieldColor[x, y] = Brushes.Red;
+                        }
                     }
 
                     if (hasLife)
                     {
-                        graphics.FillRectangle(Brushes.Crimson, x * resolution, y * resolution, resolution, resolution);
+                        graphics.FillRectangle(fieldColor[x, y], x * resolution, y * resolution, resolution, resolution);
                     };
                 }
             }
 
             field = newField;
-            /*
-                        Random random = new Random();
-                        for (int x = 0; x < cols; x++)
-                        {
-                            for (int y = 0; y < rows; y++)
-                            {
-                                field[x, y] = random.Next((int)nudDensity.Value) == 0;
-                            }
-                        }
-            */
+            fieldColor = newFieldColor;
+
             pictureBox.Refresh();
             Text = $"Generation {++currentGeneration}";
 
@@ -128,15 +173,35 @@ namespace thelife
             return count;
         }
 
+        private bool isThereLife()
+        {
+            for (int x = 0; x < cols; x++)
+            {
+                for (int y = 0; y < rows; y++)
+                {
+                    if (field[x,y]) { return true; }
+                }
+            }
+
+            return false;
+        }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
-            NextGeneration();
+            if (isThereLife()) 
+            {
+                NextGeneration();
+            }
+            else
+            {
+                Text = $"Generation {currentGeneration} - a Life is DEAD!";
+                StopGame();
+            }
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
             StartGame();
-            //graphics.FillRectangle(Brushes.Crimson, 0, 0, resolution, resolution);
         }
 
         private void buttonStop_Click(object sender, EventArgs e)
