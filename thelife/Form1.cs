@@ -24,6 +24,7 @@ namespace thelife
         private int cols;
         private int minAge = 5;
         private int maxAge = 10;
+        private int countLifes = 0;
 
         public Form1()
         {
@@ -33,8 +34,10 @@ namespace thelife
         {
             if (timer1.Enabled)
                 return;
-
+            
+            countLifes = 0;
             currentGeneration = 0;
+
             Text = $"Generation {currentGeneration}";
             SetStatusControls(false);         
 
@@ -55,6 +58,7 @@ namespace thelife
                 for (int y = 0; y < rows; y++)
                 {
                     field[x, y] = random.Next((int)nudDensity.Value) == 0;
+                    if (field[x, y]) countLifes++;
                     fieldColor[x, y] = PickBrush(9);
                     lifeTime[x, y] = GetNewLifeTime();
                 }
@@ -84,6 +88,7 @@ namespace thelife
         private Brush PickBrush(int i)
         {
             if (i > 9) i = 9;
+            if (i < 0) i = 0;
             Brush[] brushes = new Brush[] {
                 Brushes.DarkViolet,
                 Brushes.Violet,
@@ -102,11 +107,11 @@ namespace thelife
 
         private void NextGeneration()
         {
+            countLifes = 0;
             graphics.Clear(Color.Black);
 
             var newField = new bool[cols, rows];
             var newFieldColor = new Brush[cols, rows];
-
 
             for (int x = 0; x < cols; x++)
             {
@@ -142,12 +147,12 @@ namespace thelife
                             }
                             lifeTime[x, y] = 0;
                         }
-                        newFieldColor[x, y] = PickBrush(lifeTime[x, y]);
-                        
+                        newFieldColor[x, y] = PickBrush(lifeTime[x, y]);                
                     }
 
                     if (hasLife)
                     {
+                        countLifes++;
                         graphics.FillRectangle(fieldColor[x, y], x * resolution, y * resolution, resolution, resolution);
                     };
                 }
@@ -157,7 +162,13 @@ namespace thelife
             fieldColor = newFieldColor;
 
             pictureBox.Refresh();
-            Text = $"Generation {++currentGeneration}";
+            ShowStatistic();
+        }
+
+        private void ShowStatistic()
+        {
+            Text = $"Generation {++currentGeneration}, Lifes {countLifes}";
+
         }
 
         private int CountNeighbours(int x, int y)
@@ -258,7 +269,7 @@ namespace thelife
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Text = $"Generation {currentGeneration}";
+            ShowStatistic();
         }
 
         private void checkBoxDiesByAge_CheckedChanged(object sender, EventArgs e)
