@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.checkBoxDiesByAge = new System.Windows.Forms.CheckBox();
             this.nudMaxAge = new System.Windows.Forms.NumericUpDown();
             this.nudMinAge = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
@@ -41,7 +42,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.checkBoxDiesByAge = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -81,6 +81,19 @@
             this.splitContainer1.Size = new System.Drawing.Size(1078, 494);
             this.splitContainer1.SplitterDistance = 150;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // checkBoxDiesByAge
+            // 
+            this.checkBoxDiesByAge.AutoSize = true;
+            this.checkBoxDiesByAge.Checked = true;
+            this.checkBoxDiesByAge.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxDiesByAge.Location = new System.Drawing.Point(13, 104);
+            this.checkBoxDiesByAge.Name = "checkBoxDiesByAge";
+            this.checkBoxDiesByAge.Size = new System.Drawing.Size(80, 17);
+            this.checkBoxDiesByAge.TabIndex = 9;
+            this.checkBoxDiesByAge.Text = "dies by age";
+            this.checkBoxDiesByAge.UseVisualStyleBackColor = true;
+            this.checkBoxDiesByAge.CheckedChanged += new System.EventHandler(this.checkBoxDiesByAge_CheckedChanged);
             // 
             // nudMaxAge
             // 
@@ -177,7 +190,7 @@
             0,
             0});
             this.nudResolution.Minimum = new decimal(new int[] {
-            1,
+            2,
             0,
             0,
             0});
@@ -225,19 +238,6 @@
             // 
             this.timer1.Interval = 40;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // checkBoxDiesByAge
-            // 
-            this.checkBoxDiesByAge.AutoSize = true;
-            this.checkBoxDiesByAge.Checked = true;
-            this.checkBoxDiesByAge.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxDiesByAge.Location = new System.Drawing.Point(13, 104);
-            this.checkBoxDiesByAge.Name = "checkBoxDiesByAge";
-            this.checkBoxDiesByAge.Size = new System.Drawing.Size(80, 17);
-            this.checkBoxDiesByAge.TabIndex = 9;
-            this.checkBoxDiesByAge.Text = "dies by age";
-            this.checkBoxDiesByAge.UseVisualStyleBackColor = true;
-            this.checkBoxDiesByAge.CheckedChanged += new System.EventHandler(this.checkBoxDiesByAge_CheckedChanged);
             // 
             // Form1
             // 

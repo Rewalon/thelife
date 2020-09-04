@@ -153,7 +153,7 @@ namespace thelife
                     if (hasLife)
                     {
                         countLifes++;
-                        graphics.FillRectangle(fieldColor[x, y], x * resolution, y * resolution, resolution, resolution);
+                        graphics.FillRectangle(fieldColor[x, y], x * resolution, y * resolution, resolution - 1, resolution - 1);
                     };
                 }
             }
@@ -168,7 +168,6 @@ namespace thelife
         private void ShowStatistic()
         {
             Text = $"Generation {++currentGeneration}, Lifes {countLifes}";
-
         }
 
         private int CountNeighbours(int x, int y)
