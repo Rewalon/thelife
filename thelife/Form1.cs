@@ -25,23 +25,47 @@ namespace thelife
         {
             if (timer1.Enabled)
                 return;
-            
-            nudResolution.Enabled = false;
-            nudDensity.Enabled = false;
+
+            SetStatusControls(false);
+
             resolution = (int)nudResolution.Value;
 
-            gameEngine = new GameEngine
-            (
-                rows: pictureBox.Height / resolution,
-                cols: pictureBox.Width / resolution,
-                density: /*(int)(nudResolution.Minimum) + (int)(nudResolution.Maximum) -*/ (int)(nudResolution.Value)
-            );
-           
+            if (checkBoxDiesByAge.Checked)
+            {
+                gameEngine = new GameEngine
+                (
+                    rows: pictureBox.Height / resolution,
+                    cols: pictureBox.Width / resolution,
+                    density: /*(int)(nudResolution.Minimum) + (int)(nudResolution.Maximum) -*/ (int)(nudResolution.Value),
+                    minAge: (int)nudMinAge.Value,
+                    maxAge: (int)nudMaxAge.Value
+                );
+
+            }
+            else
+            {
+                gameEngine = new GameEngine
+                (
+                    rows: pictureBox.Height / resolution,
+                    cols: pictureBox.Width / resolution,
+                    density: /*(int)(nudResolution.Minimum) + (int)(nudResolution.Maximum) -*/ (int)(nudResolution.Value)
+                );
+
+            }
+
             Text = $"Generation {gameEngine.CurrentGeneration}";
             
             pictureBox.Image = new Bitmap(pictureBox.Width, pictureBox.Height);
             graphics = Graphics.FromImage(pictureBox.Image);
             timer1.Start();
+        }
+
+        private void SetStatusControls(bool status)
+        {
+            nudResolution.Enabled = status;
+            nudDensity.Enabled = status;
+            nudMinAge.Enabled = status;
+            nudMaxAge.Enabled = status;
         }
 
         private void DrawNextGeneration()
@@ -82,8 +106,7 @@ namespace thelife
                 return;
 
             timer1.Stop();
-            nudResolution.Enabled = true;
-            nudDensity.Enabled = true;
+            SetStatusControls(true);
         }
 
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)

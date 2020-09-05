@@ -38,6 +38,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.checkBoxDiesByAge = new System.Windows.Forms.CheckBox();
+            this.nudMinAge = new System.Windows.Forms.NumericUpDown();
+            this.nudMaxAge = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -45,6 +48,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudDensity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudResolution)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinAge)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxAge)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -58,6 +63,9 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.nudMaxAge);
+            this.splitContainer1.Panel1.Controls.Add(this.nudMinAge);
+            this.splitContainer1.Panel1.Controls.Add(this.checkBoxDiesByAge);
             this.splitContainer1.Panel1.Controls.Add(this.buttonStop);
             this.splitContainer1.Panel1.Controls.Add(this.buttonStart);
             this.splitContainer1.Panel1.Controls.Add(this.nudDensity);
@@ -75,7 +83,7 @@
             // buttonStop
             // 
             this.buttonStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonStop.Location = new System.Drawing.Point(13, 152);
+            this.buttonStop.Location = new System.Drawing.Point(13, 219);
             this.buttonStop.Name = "buttonStop";
             this.buttonStop.Size = new System.Drawing.Size(120, 33);
             this.buttonStop.TabIndex = 5;
@@ -86,7 +94,7 @@
             // buttonStart
             // 
             this.buttonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonStart.Location = new System.Drawing.Point(13, 113);
+            this.buttonStart.Location = new System.Drawing.Point(13, 180);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(120, 33);
             this.buttonStart.TabIndex = 4;
@@ -175,6 +183,54 @@
             this.timer1.Interval = 40;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // checkBoxDiesByAge
+            // 
+            this.checkBoxDiesByAge.AutoSize = true;
+            this.checkBoxDiesByAge.Location = new System.Drawing.Point(13, 104);
+            this.checkBoxDiesByAge.Name = "checkBoxDiesByAge";
+            this.checkBoxDiesByAge.Size = new System.Drawing.Size(80, 17);
+            this.checkBoxDiesByAge.TabIndex = 1;
+            this.checkBoxDiesByAge.Text = "dies by age";
+            this.checkBoxDiesByAge.UseVisualStyleBackColor = true;
+            // 
+            // nudMinAge
+            // 
+            this.nudMinAge.Location = new System.Drawing.Point(11, 128);
+            this.nudMinAge.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.nudMinAge.Name = "nudMinAge";
+            this.nudMinAge.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.nudMinAge.Size = new System.Drawing.Size(59, 20);
+            this.nudMinAge.TabIndex = 6;
+            this.nudMinAge.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudMinAge.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // nudMaxAge
+            // 
+            this.nudMaxAge.Location = new System.Drawing.Point(74, 128);
+            this.nudMaxAge.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.nudMaxAge.Name = "nudMaxAge";
+            this.nudMaxAge.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.nudMaxAge.Size = new System.Drawing.Size(59, 20);
+            this.nudMaxAge.TabIndex = 6;
+            this.nudMaxAge.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudMaxAge.Value = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -191,6 +247,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudDensity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudResolution)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinAge)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxAge)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -206,6 +264,9 @@
         private System.Windows.Forms.Button buttonStop;
         private System.Windows.Forms.Button buttonStart;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.CheckBox checkBoxDiesByAge;
+        private System.Windows.Forms.NumericUpDown nudMaxAge;
+        private System.Windows.Forms.NumericUpDown nudMinAge;
     }
 }
 
