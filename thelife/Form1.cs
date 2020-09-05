@@ -83,22 +83,13 @@ namespace thelife
 
                     if (hasLife)
                     {
-                        graphics.FillRectangle(Brushes.Crimson, x * resolution, y * resolution, resolution, resolution);
+                        graphics.FillRectangle(Brushes.Crimson, x * resolution, y * resolution, resolution - 1, resolution - 1);
                     };
                 }
             }
 
             field = newField;
-            /*
-                        Random random = new Random();
-                        for (int x = 0; x < cols; x++)
-                        {
-                            for (int y = 0; y < rows; y++)
-                            {
-                                field[x, y] = random.Next((int)nudDensity.Value) == 0;
-                            }
-                        }
-            */
+
             pictureBox.Refresh();
             Text = $"Generation {++currentGeneration}";
 
@@ -123,8 +114,6 @@ namespace thelife
 
                 }
             }
-
-
             return count;
         }
 
@@ -136,7 +125,6 @@ namespace thelife
         private void buttonStart_Click(object sender, EventArgs e)
         {
             StartGame();
-            //graphics.FillRectangle(Brushes.Crimson, 0, 0, resolution, resolution);
         }
 
         private void buttonStop_Click(object sender, EventArgs e)
