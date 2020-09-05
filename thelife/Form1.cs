@@ -14,11 +14,8 @@ namespace thelife
     public partial class Form1 : Form
     {
         private Graphics graphics;
-        private int currentGeneration = 0; 
         private int resolution;
-        private bool[,] field;
-        private int rows;
-        private int cols;
+        private GameEngine gameEngine;
 
         public Form1()
         {
@@ -28,98 +25,45 @@ namespace thelife
         {
             if (timer1.Enabled)
                 return;
-
-            currentGeneration = 0;
-            Text = $"Generation {currentGeneration}";
+            
             nudResolution.Enabled = false;
             nudDensity.Enabled = false;
-
             resolution = (int)nudResolution.Value;
 
-            rows = pictureBox.Height / resolution;
-            cols = pictureBox.Width / resolution;
-            field = new bool[cols, rows];
-
-            Random random = new Random();
-            for (int x = 0; x < cols; x++)
-            {
-                for (int y = 0; y < rows; y++)
-                {
-                    field[x, y] = random.Next((int)nudDensity.Value) == 0;
-                }
-            }
-
+            gameEngine = new GameEngine
+            (
+                rows: pictureBox.Height / resolution,
+                cols: pictureBox.Width / resolution,
+                density: /*(int)(nudResolution.Minimum) + (int)(nudResolution.Maximum) -*/ (int)(nudResolution.Value)
+            );
+           
+            Text = $"Generation {gameEngine.CurrentGeneration}";
+            
             pictureBox.Image = new Bitmap(pictureBox.Width, pictureBox.Height);
             graphics = Graphics.FromImage(pictureBox.Image);
-
             timer1.Start();
         }
 
-        private void NextGeneration()
+        private void DrawNextGeneration()
         {
             graphics.Clear(Color.Black);
-
-            var newField = new bool[cols, rows];
-
-            for (int x = 0; x < cols; x++)
+            var field = gameEngine.GetCurrentGeneration();
+            for (int x = 0; x < field.GetLength(0); x++)
             {
-                for (int y = 0; y < rows; y++)
+                for (int y = 0; y < field.GetLength(1); y++)
                 {
-                    var neighboursCount = CountNeighbours(x, y);
-                    var hasLife = field[x, y];
-
-                    if (!hasLife && neighboursCount == 3)
-                    {
-                        newField[x, y] = true;
-                    }
-                    else if (hasLife && (neighboursCount < 2 || neighboursCount > 3))
-                    {
-                        newField[x, y] = false;
-                    }
-                    else
-                    {
-                        newField[x, y] = field[x, y];
-                    }
-
-                    if (hasLife)
-                    {
+                    if (field[x,y])
                         graphics.FillRectangle(Brushes.Crimson, x * resolution, y * resolution, resolution - 1, resolution - 1);
-                    };
                 }
             }
-
-            field = newField;
-
             pictureBox.Refresh();
-            Text = $"Generation {++currentGeneration}";
-
-        }
-
-        private int CountNeighbours(int x, int y)
-        {
-            int count = 0;
-
-            for (int i = -1; i < 2; i++)
-            {
-                for (int j = -1; j < 2; j++)
-                {
-                    var col = (x + i + cols) % cols;
-                    var row = (y + j + rows) % rows;
-                    var isSelfCheking = col == x && row == y;
-                    var hasLife = field[col, row];
-                    if (hasLife && !isSelfCheking)
-                    {
-                        count++;
-                    }
-
-                }
-            }
-            return count;
+            Text = $"Generation {gameEngine.CurrentGeneration}";
+            gameEngine.NextGeneration();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            NextGeneration();
+            DrawNextGeneration();
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
@@ -140,6 +84,26 @@ namespace thelife
             timer1.Stop();
             nudResolution.Enabled = true;
             nudDensity.Enabled = true;
+        }
+
+        private void pictureBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (!timer1.Enabled)
+                return;
+
+            if (e.Button == MouseButtons.Left)
+            {
+                var x = e.Location.X / resolution;
+                var y = e.Location.Y / resolution;
+                gameEngine.AddCell(x, y);
+            }
+
+            if (e.Button == MouseButtons.Right)
+            {
+                var x = e.Location.X / resolution;
+                var y = e.Location.Y / resolution;
+                gameEngine.RemoveCell(x, y);
+            }
         }
     }
 }
