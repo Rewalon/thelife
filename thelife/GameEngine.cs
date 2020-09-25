@@ -11,8 +11,8 @@ namespace thelife
         public uint CurrentGeneration { get; private set; }
         private readonly int rows;
         private readonly int cols;
-        private readonly int minAge;
-        private readonly int maxAge;
+        public readonly int minAge;
+        public readonly int maxAge ;
         private readonly bool useLifeAge;
         private bool[,] field;
         private int[,] lifeTime;
@@ -55,7 +55,7 @@ namespace thelife
         public void NextGeneration()
         {
             var newField = new bool[cols, rows];
-            
+
             for (int x = 0; x < cols; x++)
             {
                 for (int y = 0; y < rows; y++)
@@ -98,6 +98,19 @@ namespace thelife
                 for (int y = 0; y < rows; y++)
                 {
                     result[x, y] = field[x, y];
+                }
+            }
+            return result;
+        }
+
+        public int[,] GetCurrentAges()
+        {
+            var result = new int[cols, rows];
+            for (int x = 0; x < cols; x++)
+            {
+                for (int y = 0; y < rows; y++)
+                {
+                    result[x, y] = ageLife[x, y];
                 }
             }
             return result;

@@ -17,6 +17,19 @@ namespace thelife
         private int resolution;
         private GameEngine gameEngine;
 
+        private readonly Brush[] brushes = new Brush[] {
+                                                        Brushes.DarkViolet,
+                                                        Brushes.Violet,
+                                                        Brushes.Red,
+                                                        Brushes.Orange,
+                                                        Brushes.Yellow,
+                                                        Brushes.LightYellow,
+                                                        Brushes.Green,
+                                                        Brushes.LightGreen,
+                                                        Brushes.Blue,
+                                                        Brushes.LightBlue
+                                                      };
+
         public Form1()
         {
             InitializeComponent();
@@ -40,7 +53,6 @@ namespace thelife
                     minAge: (int)nudMinAge.Value,
                     maxAge: (int)nudMaxAge.Value
                 );
-
             }
             else
             {
@@ -50,7 +62,6 @@ namespace thelife
                     cols: pictureBox.Width / resolution,
                     density: /*(int)(nudResolution.Minimum) + (int)(nudResolution.Maximum) -*/ (int)(nudResolution.Value)
                 );
-
             }
 
             Text = $"Generation {gameEngine.CurrentGeneration}";
@@ -67,17 +78,33 @@ namespace thelife
             nudMinAge.Enabled = status;
             nudMaxAge.Enabled = status;
         }
-
+        private Brush PickBrush(int i)
+        {
+            if (!checkBoxColorizingAge.Checked)
+            {
+                return brushes[i];
+            }
+            else
+            {
+                if (i > brushes.Length - 1) i = brushes.Length - 1;
+                return brushes[i];
+            }
+        }
+        private int AgeToColor(int age)
+        {
+            return checkBoxColorizingAge.Checked ? (int)(age) : 1;
+        }
         private void DrawNextGeneration()
         {
             graphics.Clear(Color.Black);
             var field = gameEngine.GetCurrentGeneration();
+            var ages = gameEngine.GetCurrentAges();
             for (int x = 0; x < field.GetLength(0); x++)
             {
                 for (int y = 0; y < field.GetLength(1); y++)
                 {
                     if (field[x,y])
-                        graphics.FillRectangle(Brushes.Crimson, x * resolution, y * resolution, resolution - 1, resolution - 1);
+                        graphics.FillRectangle(PickBrush(AgeToColor(ages[x,y])), x * resolution, y * resolution, resolution - 1, resolution - 1);
                 }
             }
             pictureBox.Refresh();
