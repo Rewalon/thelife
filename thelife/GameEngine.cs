@@ -17,6 +17,9 @@ namespace thelife
         private bool[,] field;
         private int[,] lifeTime;
         private int[,] ageLife;
+        public uint countLifes { get; private set; }
+
+
 
         public GameEngine(int cols, int rows, int density) : this(cols, rows, density, 0, 0) { } 
 
@@ -26,6 +29,7 @@ namespace thelife
             this.rows = rows;
             this.minAge = minAge;
             this.maxAge = maxAge;
+            countLifes = 0;
             useLifeAge = !(minAge == 0 && maxAge == 0);
             field = new bool[cols, rows];
             lifeTime = new int[cols, rows];
@@ -55,7 +59,7 @@ namespace thelife
         public void NextGeneration()
         {
             var newField = new bool[cols, rows];
-
+            countLifes = 0;
             for (int x = 0; x < cols; x++)
             {
                 for (int y = 0; y < rows; y++)
@@ -84,6 +88,7 @@ namespace thelife
                             }
                         }
                     }
+                    if (field[x, y]) countLifes++;
                 }
             }
             field = newField;

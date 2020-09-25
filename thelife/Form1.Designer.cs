@@ -30,6 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.checkBoxColorizingAge = new System.Windows.Forms.CheckBox();
+            this.nudMaxAge = new System.Windows.Forms.NumericUpDown();
+            this.nudMinAge = new System.Windows.Forms.NumericUpDown();
+            this.checkBoxDiesByAge = new System.Windows.Forms.CheckBox();
             this.buttonStop = new System.Windows.Forms.Button();
             this.buttonStart = new System.Windows.Forms.Button();
             this.nudDensity = new System.Windows.Forms.NumericUpDown();
@@ -38,19 +42,19 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.checkBoxDiesByAge = new System.Windows.Forms.CheckBox();
-            this.nudMinAge = new System.Windows.Forms.NumericUpDown();
-            this.nudMaxAge = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxColorizingAge = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelGenerations = new System.Windows.Forms.Label();
+            this.labelLifeCount = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxAge)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinAge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDensity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudResolution)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMinAge)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMaxAge)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -64,6 +68,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
             this.splitContainer1.Panel1.Controls.Add(this.checkBoxColorizingAge);
             this.splitContainer1.Panel1.Controls.Add(this.nudMaxAge);
             this.splitContainer1.Panel1.Controls.Add(this.nudMinAge);
@@ -81,6 +86,64 @@
             this.splitContainer1.Size = new System.Drawing.Size(1078, 494);
             this.splitContainer1.SplitterDistance = 150;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // checkBoxColorizingAge
+            // 
+            this.checkBoxColorizingAge.AutoSize = true;
+            this.checkBoxColorizingAge.Location = new System.Drawing.Point(13, 165);
+            this.checkBoxColorizingAge.Name = "checkBoxColorizingAge";
+            this.checkBoxColorizingAge.Size = new System.Drawing.Size(50, 17);
+            this.checkBoxColorizingAge.TabIndex = 7;
+            this.checkBoxColorizingAge.Text = "Color";
+            this.checkBoxColorizingAge.UseVisualStyleBackColor = true;
+            // 
+            // nudMaxAge
+            // 
+            this.nudMaxAge.Location = new System.Drawing.Point(74, 128);
+            this.nudMaxAge.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.nudMaxAge.Name = "nudMaxAge";
+            this.nudMaxAge.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.nudMaxAge.Size = new System.Drawing.Size(59, 20);
+            this.nudMaxAge.TabIndex = 6;
+            this.nudMaxAge.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudMaxAge.Value = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            // 
+            // nudMinAge
+            // 
+            this.nudMinAge.Location = new System.Drawing.Point(13, 128);
+            this.nudMinAge.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.nudMinAge.Name = "nudMinAge";
+            this.nudMinAge.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.nudMinAge.Size = new System.Drawing.Size(59, 20);
+            this.nudMinAge.TabIndex = 6;
+            this.nudMinAge.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudMinAge.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // checkBoxDiesByAge
+            // 
+            this.checkBoxDiesByAge.AutoSize = true;
+            this.checkBoxDiesByAge.Location = new System.Drawing.Point(13, 104);
+            this.checkBoxDiesByAge.Name = "checkBoxDiesByAge";
+            this.checkBoxDiesByAge.Size = new System.Drawing.Size(80, 17);
+            this.checkBoxDiesByAge.TabIndex = 1;
+            this.checkBoxDiesByAge.Text = "dies by age";
+            this.checkBoxDiesByAge.UseVisualStyleBackColor = true;
             // 
             // buttonStop
             // 
@@ -185,63 +248,36 @@
             this.timer1.Interval = 40;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // checkBoxDiesByAge
+            // groupBox1
             // 
-            this.checkBoxDiesByAge.AutoSize = true;
-            this.checkBoxDiesByAge.Location = new System.Drawing.Point(13, 104);
-            this.checkBoxDiesByAge.Name = "checkBoxDiesByAge";
-            this.checkBoxDiesByAge.Size = new System.Drawing.Size(80, 17);
-            this.checkBoxDiesByAge.TabIndex = 1;
-            this.checkBoxDiesByAge.Text = "dies by age";
-            this.checkBoxDiesByAge.UseVisualStyleBackColor = true;
+            this.groupBox1.Controls.Add(this.labelLifeCount);
+            this.groupBox1.Controls.Add(this.labelGenerations);
+            this.groupBox1.Location = new System.Drawing.Point(13, 267);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(120, 213);
+            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Statistic";
             // 
-            // nudMinAge
+            // labelGenerations
             // 
-            this.nudMinAge.Location = new System.Drawing.Point(13, 128);
-            this.nudMinAge.Minimum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.nudMinAge.Name = "nudMinAge";
-            this.nudMinAge.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.nudMinAge.Size = new System.Drawing.Size(59, 20);
-            this.nudMinAge.TabIndex = 6;
-            this.nudMinAge.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.nudMinAge.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
+            this.labelGenerations.AutoSize = true;
+            this.labelGenerations.Dock = System.Windows.Forms.DockStyle.Top;
+            this.labelGenerations.Location = new System.Drawing.Point(3, 16);
+            this.labelGenerations.Name = "labelGenerations";
+            this.labelGenerations.Size = new System.Drawing.Size(64, 13);
+            this.labelGenerations.TabIndex = 0;
+            this.labelGenerations.Text = "Generations";
             // 
-            // nudMaxAge
+            // labelLifeCount
             // 
-            this.nudMaxAge.Location = new System.Drawing.Point(74, 128);
-            this.nudMaxAge.Minimum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.nudMaxAge.Name = "nudMaxAge";
-            this.nudMaxAge.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.nudMaxAge.Size = new System.Drawing.Size(59, 20);
-            this.nudMaxAge.TabIndex = 6;
-            this.nudMaxAge.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.nudMaxAge.Value = new decimal(new int[] {
-            15,
-            0,
-            0,
-            0});
-            // 
-            // checkBoxColorizingAge
-            // 
-            this.checkBoxColorizingAge.AutoSize = true;
-            this.checkBoxColorizingAge.Location = new System.Drawing.Point(13, 165);
-            this.checkBoxColorizingAge.Name = "checkBoxColorizingAge";
-            this.checkBoxColorizingAge.Size = new System.Drawing.Size(50, 17);
-            this.checkBoxColorizingAge.TabIndex = 7;
-            this.checkBoxColorizingAge.Text = "Color";
-            this.checkBoxColorizingAge.UseVisualStyleBackColor = true;
+            this.labelLifeCount.AutoSize = true;
+            this.labelLifeCount.Dock = System.Windows.Forms.DockStyle.Top;
+            this.labelLifeCount.Location = new System.Drawing.Point(3, 29);
+            this.labelLifeCount.Name = "labelLifeCount";
+            this.labelLifeCount.Size = new System.Drawing.Size(32, 13);
+            this.labelLifeCount.TabIndex = 1;
+            this.labelLifeCount.Text = "Lifes:";
             // 
             // Form1
             // 
@@ -256,11 +292,13 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxAge)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinAge)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDensity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudResolution)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMinAge)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMaxAge)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -280,6 +318,9 @@
         private System.Windows.Forms.NumericUpDown nudMaxAge;
         private System.Windows.Forms.NumericUpDown nudMinAge;
         private System.Windows.Forms.CheckBox checkBoxColorizingAge;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label labelLifeCount;
+        private System.Windows.Forms.Label labelGenerations;
     }
 }
 

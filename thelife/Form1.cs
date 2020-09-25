@@ -64,11 +64,28 @@ namespace thelife
                 );
             }
 
-            Text = $"Generation {gameEngine.CurrentGeneration}";
-            
+            ShowStatistic();
+
             pictureBox.Image = new Bitmap(pictureBox.Width, pictureBox.Height);
             graphics = Graphics.FromImage(pictureBox.Image);
             timer1.Start();
+        }
+
+        private void ShowStatistic()
+        {
+            labelGenerations.Text = $"Generation: {gameEngine.CurrentGeneration}";
+            labelLifeCount.Text = $"Life: {gameEngine.countLifes}";
+            if (gameEngine.CurrentGeneration > 0)
+            {
+                if (gameEngine.countLifes <= 0)
+                {
+                    StopGame();
+                    MessageBox.Show(
+                            "No life left.",
+                            "The End Game",
+                            MessageBoxButtons.OK);
+                }
+            }
         }
 
         private void SetStatusControls(bool status)
@@ -108,7 +125,7 @@ namespace thelife
                 }
             }
             pictureBox.Refresh();
-            Text = $"Generation {gameEngine.CurrentGeneration}";
+            ShowStatistic();
             gameEngine.NextGeneration();
         }
 
